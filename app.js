@@ -5,20 +5,29 @@ const refs = {
     timeEl: document.getElementById('time'),
     board: document.getElementById('board'),
     score: document.querySelector('.primary'),
+    finishBtn: document.getElementById('finish'),
+    container: document.querySelector('.container'),
+    gameWrap: document.querySelector('.game-wrap'),
 };
 
 let time = 0;
 let score = 0;
+refs.gameWrap.style.transform = 'translateY(0)';
 
 refs.startBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    refs.screens[0].classList.add('up');
+    getIndex(1);
+});
+
+refs.finishBtn.addEventListener('click', (event) => {
+    event.preventDefault();
+    getNewGame();
 });
 
 refs.timeList.addEventListener('click', event => {
     if (event.target.classList.contains('time-btn')) {
         time = parseInt(event.target.getAttribute('data-time'));
-        refs.screens[1].classList.add('up');
+        getIndex(2);
         createRandomCircle()
         startGame();
   }
@@ -37,6 +46,20 @@ function startGame() {
     setTime(time);
 };
 
+function getNewGame() {
+    getIndex(4);
+};
+
+function getIndex(index) {
+    if (refs.screens.length > index) {
+        return refs.gameWrap.style.transform = `translateY(-${index * refs.container.clientHeight}px)`;
+    } else {
+        time = 0;
+        score = 0;
+        return refs.gameWrap.style.transform = 'translateY(0)';
+    }
+}
+
 function decreaseTime() {
     if (time === 0) {
         finishGame();
@@ -54,13 +77,13 @@ function setTime(value) {
 };
 
 function finishGame() {
-    refs.timeEl.parentNode.classList.add('hide');
-    refs.board.innerHTML = `<h1>Счет: <span class="primary">${score}</span></h1>`;
-
+    refs.score.textContent = `${score}`;
+    getIndex(3);
 };
 
 function createRandomCircle() {
     const circle = document.createElement('div');
+    circle.classList.add('circle');
     const size = getRandomNumber(10, 60);
     const { width, height } = refs.board.getBoundingClientRect();
 
@@ -85,4 +108,19 @@ function getRandomColor() {
     (Math.floor(Math.random()*56)+150) + ', ' +
     (Math.floor(Math.random()*56)+150) +
     ')';
+};
+
+function winTheGame() {
+    function killCircle() {
+        const circle = document.querySelector('.circle');
+
+        if (circle) {
+            circle.click();
+
+        }
+        if (time === 0) {
+        clearInterval(id);
+    }
+    }
+    let id = setInterval(killCircle, 120); 
 }

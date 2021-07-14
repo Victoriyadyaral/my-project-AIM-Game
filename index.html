@@ -7,13 +7,15 @@
     <title>Aim Training | Проект 5</title>
   </head>
   <body>
+    <div class="container">
+      <div class="game-wrap">
     <div class="screen">
       <h1>Aim Training</h1>
-      <a href="#" class="start" id="start">Начать игру</a>
+      <a href="#" class="btn" id="start">START</a>
     </div>
 
     <div class="screen">
-      <h1>Выберите время</h1>
+      <h1>Choose the time</h1>
       <ul class="time-list" id="time-list">
         <li>
           <button class="time-btn" data-time="10">
@@ -39,9 +41,16 @@
     </div>
 
     <div class="screen">
-      <h3>Осталось <span id="time">00:00</span></h3>
+      <h3><span class="timer" id="time">00:00</span></h3>
       <div class="board" id="board"></div>
     </div>
+
+      <div class="screen">
+        <h1>Score: <span class="primary">${score}</span></h1>
+        <a href="#" class="btn" id="finish">FINISH</a>
+      </div>
+          </div>
+          </div>
   
     <script src="app.js"></script>
   </body>

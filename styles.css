@@ -8,22 +8,34 @@ body {
   color: #fff;
   font-family: "Khula", sans-serif;
   height: 100vh;
-  overflow: hidden;
   margin: 0;
   text-align: center;
 }
 
-a {
+.container {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.game-wrap {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: translateY(0);
+  transition: transform 800ms ease-in-out;
+}
+
+.btn {
   color: #fff;
   text-decoration: none;
-}
-
-a:hover {
-  color: #16d9e3;
-}
-
-.start {
   font-size: 1.5rem;
+}
+
+.btn:hover {
+  color: #16d9e3;
 }
 
 h1 {
@@ -38,7 +50,6 @@ h1 {
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  transition: margin 0.5s ease-out;
   background: linear-gradient(90deg, #29323c 0%, #485563 100%);
 }
 
@@ -73,8 +84,8 @@ h1 {
   color: #16d9e3;
 }
 
-.hide {
-  opacity: 0;
+.timer {
+  font-size: 3rem;
 }
 
 .primary {
