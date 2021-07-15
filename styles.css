@@ -12,22 +12,6 @@ body {
   text-align: center;
 }
 
-.container {
-  position: relative;
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-}
-
-.game-wrap {
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  transform: translateY(0);
-  transition: transform 800ms ease-in-out;
-}
-
 .btn {
   color: #fff;
   text-decoration: none;

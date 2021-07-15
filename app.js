@@ -6,32 +6,29 @@ const refs = {
     board: document.getElementById('board'),
     score: document.querySelector('.primary'),
     finishBtn: document.getElementById('finish'),
-    container: document.querySelector('.container'),
-    gameWrap: document.querySelector('.game-wrap'),
 };
 
 let time = 0;
 let score = 0;
-refs.gameWrap.style.transform = 'translateY(0)';
+let id = 0;
 
 refs.startBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    getIndex(1);
+    time = 0;
+    score = 0;
+    clearInterval(id);
+    refs.screens[0].classList.add('up');
+    refs.screens[2].classList.remove('up');
 });
 
 refs.finishBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    getNewGame();
+    refs.screens[0].classList.remove('up');
+    refs.screens[1].classList.remove('up');
+    refs.screens[2].classList.remove('up');
 });
 
-refs.timeList.addEventListener('click', event => {
-    if (event.target.classList.contains('time-btn')) {
-        time = parseInt(event.target.getAttribute('data-time'));
-        getIndex(2);
-        createRandomCircle()
-        startGame();
-  }
-});
+refs.timeList.addEventListener('click', chooseTheTime);
 
 refs.board.addEventListener('click', evt => {
     if (evt.target.classList.contains('circle')) {
@@ -41,24 +38,21 @@ refs.board.addEventListener('click', evt => {
     }
 });
 
-function startGame() {
-    setInterval(decreaseTime, 1000)
-    setTime(time);
-};
-
-function getNewGame() {
-    getIndex(4);
-};
-
-function getIndex(index) {
-    if (refs.screens.length > index) {
-        return refs.gameWrap.style.transform = `translateY(-${index * refs.container.clientHeight}px)`;
-    } else {
-        time = 0;
-        score = 0;
-        return refs.gameWrap.style.transform = 'translateY(0)';
+function chooseTheTime(event) {
+    if (event.target.classList.contains('time-btn')) {
+        time = parseInt(event.target.getAttribute('data-time'));
+        refs.screens[1].classList.add('up');
+        createRandomCircle()
+        id =startGame();
     }
-}
+    return id;
+};
+
+function startGame() {
+    id = setInterval(decreaseTime, 1000)
+    setTime(time);
+    return id;
+};
 
 function decreaseTime() {
     if (time === 0) {
@@ -78,7 +72,7 @@ function setTime(value) {
 
 function finishGame() {
     refs.score.textContent = `${score}`;
-    getIndex(3);
+    refs.screens[2].classList.add('up');
 };
 
 function createRandomCircle() {
