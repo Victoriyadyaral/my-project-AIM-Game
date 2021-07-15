@@ -5,12 +5,14 @@ const refs = {
     timeEl: document.getElementById('time'),
     board: document.getElementById('board'),
     score: document.querySelector('.primary'),
+    totalScore: document.querySelector('.total'),
     finishBtn: document.getElementById('finish'),
 };
 
 let time = 0;
 let score = 0;
 let id = 0;
+let totalScore = 0;
 
 refs.startBtn.addEventListener('click', (event) => {
     event.preventDefault();
@@ -33,6 +35,7 @@ refs.timeList.addEventListener('click', chooseTheTime);
 refs.board.addEventListener('click', evt => {
     if (evt.target.classList.contains('circle')) {
         score++;
+        totalScore++;
         evt.target.remove();
         createRandomCircle();
     }
@@ -72,12 +75,12 @@ function setTime(value) {
 
 function finishGame() {
     refs.score.textContent = `${score}`;
+    refs.totalScore.textContent = `${totalScore}`;
     refs.screens[2].classList.add('up');
 };
 
 function createRandomCircle() {
     const circle = document.createElement('div');
-    circle.classList.add('circle');
     const size = getRandomNumber(10, 60);
     const { width, height } = refs.board.getBoundingClientRect();
 
