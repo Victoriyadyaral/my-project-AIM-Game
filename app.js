@@ -20,6 +20,8 @@ refs.startBtn.addEventListener('click', (event) => {
     score = 0;
     clearInterval(id);
     refs.screens[0].classList.add('up');
+    refs.screens[2].classList.add('hide');
+    refs.screens[3].classList.add('hide');
     refs.screens[2].classList.remove('up');
 });
 
@@ -27,7 +29,7 @@ refs.finishBtn.addEventListener('click', (event) => {
     event.preventDefault();
     refs.screens[0].classList.remove('up');
     refs.screens[1].classList.remove('up');
-    refs.screens[2].classList.remove('up');
+    //refs.screens[2].classList.remove('up');
 });
 
 refs.timeList.addEventListener('click', chooseTheTime);
@@ -45,6 +47,7 @@ function chooseTheTime(event) {
     if (event.target.classList.contains('time-btn')) {
         time = parseInt(event.target.getAttribute('data-time'));
         refs.screens[1].classList.add('up');
+        refs.screens[2].classList.remove('hide');
         createRandomCircle()
         id =startGame();
     }
@@ -77,6 +80,7 @@ function finishGame() {
     refs.score.textContent = `${score}`;
     refs.totalScore.textContent = `${totalScore}`;
     refs.screens[2].classList.add('up');
+    refs.screens[3].classList.remove('hide');
 };
 
 function createRandomCircle() {
@@ -88,8 +92,8 @@ function createRandomCircle() {
 
     circle.style.width = `${size}px`;
     circle.style.height = `${size}px`;
-    circle.style.top = `${getRandomNumber(0, (height - size))}px`;
-    circle.style.left = `${getRandomNumber(0, (width - size))}px`;
+    circle.style.top = `${getRandomNumber(1, (height - size))}px`;
+    circle.style.left = `${getRandomNumber(1, (width - size))}px`;
     circle.style.backgroundColor = getRandomColor();
 
     refs.board.append(circle);
